@@ -10,6 +10,10 @@ import (
 )
 
 func Listen() error {
+	err := envconfig.Load()
+	if err != nil {
+		return err
+	}
 	dbConf := db.DbConfig{
 		Host:     envconfig.Get("DB_HOST", "localhost"),
 		Port:     envconfig.Get("DB_PORT", "5432"),
