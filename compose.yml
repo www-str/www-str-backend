@@ -2,7 +2,7 @@ services:
   backend:
     build: .
     ports:
-      - "80:8090"
+      - "8090:8090"
     volumes:
       - ./.env:/app/.env
     restart: always
