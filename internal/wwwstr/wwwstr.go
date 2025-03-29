@@ -11,11 +11,11 @@ import (
 
 func Listen() error {
 	dbConf := db.DbConfig{
-		Host:     envconfig.Get("DB_HOST", "localhost"),
-		Port:     envconfig.Get("DB_PORT", "5432"),
-		UserName: envconfig.Get("DB_USERNAME", "login"),
-		Password: envconfig.Get("DB_PASSWORD", "password"),
-		Database: envconfig.Get("DB_NAME", "postgres"),
+		Host:     envconfig.Get("POSTGRES_HOST", "0.0.0.0"),
+		Port:     envconfig.Get("POSTGRES_PORT", "5432"),
+		UserName: envconfig.Get("DB_USER", "postgres"),
+		Password: envconfig.Get("POSTGRES_PASSWORD", "pg_password"),
+		Database: envconfig.Get("DB_NAME", "back_db"),
 	}
 	db, err := dbConf.InitConnection()
 	if err != nil {
