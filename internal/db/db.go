@@ -1,6 +1,7 @@
 package db
 
 import (
+	"fmt"
 	"log"
 	"wwwstr/internal/db/model"
 
@@ -24,13 +25,19 @@ func migrateAll(db *gorm.DB) {
 }
 
 func (conf *DbConfig) InitConnection() (*gorm.DB, error) {
-	dsn := "host=" + conf.Host +
-		" port=" + conf.Port +
-		" user=" + conf.UserName +
-		" password=" + conf.Password +
-		" dbname=" + conf.Database +
-		" sslmode=disable"
-
+	// dsn := "host=" + conf.Host +
+	// 	" port=" + conf.Port +
+	// 	" user=" + conf.UserName +
+	// 	" password=" + conf.Password +
+	// 	" dbname=" + conf.Database +
+	// 	" sslmode=disable"
+	dsn := fmt.Sprintf("postgres://%s:%s@%s:%s/%s",
+		conf.UserName,
+		conf.Password,
+		conf.Host,
+		conf.Port,
+		conf.Database,
+	)
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
 		log.Fatalf("Ошибка подключения к базе данных: %v", err)
