@@ -18,19 +18,16 @@ type DbConfig struct {
 }
 
 func migrateAll(db *gorm.DB) {
-	db.AutoMigrate(
+	err := db.AutoMigrate(
 		model.Rating{},
 		model.Question{},
 	)
+	if err != nil {
+		log.Fatalf("Ошибка миграции базы данных: %v", err)
+	}
 }
 
 func (conf *DbConfig) InitConnection() (*gorm.DB, error) {
-	// dsn := "host=" + conf.Host +
-	// 	" port=" + conf.Port +
-	// 	" user=" + conf.UserName +
-	// 	" password=" + conf.Password +
-	// 	" dbname=" + conf.Database +
-	// 	" sslmode=disable"
 	dsn := fmt.Sprintf("postgres://%s:%s@%s:%s/%s",
 		conf.UserName,
 		conf.Password,
