@@ -25,8 +25,11 @@ func Listen() error {
 	if err != nil {
 		return err
 	}
+	googleApiKey := envconfig.Get("VITE_GOOGLE_API_KEY", "")
+	searchKey := envconfig.Get("VITE_SEARCH_KEY", "")
 	router := mux.NewRouter()
 	router.HandleFunc("/api/ratings/set", handler.RatingsSetHandlerW(db)).Methods("POST")
 	router.HandleFunc("/api/questions/set", handler.QuestionsSetHandlerW(db)).Methods("POST")
+	router.HandleFunc("/api/search/get", handler.SearchGetHandlerW(googleApiKey, searchKey)).Methods("GET")
 	return http.ListenAndServe(":"+envconfig.Get("HTTP_PORT", "8090"), router)
 }
