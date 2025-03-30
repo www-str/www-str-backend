@@ -32,4 +32,4 @@ services:
 volumes:
   postgres-data-str:
     name: postgres-data-str
-
+    
